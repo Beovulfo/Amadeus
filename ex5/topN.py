@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import web
 import json
+import pandas as pd
 
 urls = (
     '/(.*)', 'index'
@@ -8,10 +9,11 @@ urls = (
 
 class index:
     def GET(self,name):
-        # How to obtain the name key and then print the value?
-        pyDict  = {'one':1,'two':2}
+        fnew = 'topN.h5';#File to read
+        df = pd.read_hdf(fnew,mode='r')
+        output = df.head(name)
         web.header('Content-Type','application/json')
-        return json.dumps(pyDict)
+        return json.dumps(output)
 
 if __name__ == '__main__':
     app = web.application(urls, globals())
