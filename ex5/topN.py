@@ -10,6 +10,8 @@ urls = (
 
 class index:
     def GET(self,name):
+	if not name:
+		name = '10'
         fnew = 'topN.h5';#File to read
         df = pd.read_hdf(fnew,mode='r')
         N = np.int(name)#Convert to integer
